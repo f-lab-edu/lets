@@ -8,6 +8,8 @@ public class SearchGatheringRequest {
 
     private FilterCondition filterCondition;
     private SortCondition sortCondition;
+    private Integer offset;
+    private Integer pageSize;
 
     @Getter
     public static class FilterCondition {

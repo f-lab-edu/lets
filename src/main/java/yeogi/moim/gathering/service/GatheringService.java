@@ -33,13 +33,6 @@ public class GatheringService {
     }
 
     @Transactional(readOnly = true)
-    public List<GatheringResponse> getGatheringList() {
-        return gatheringRepository.findAll().stream()
-                .map(GatheringResponse::from)
-                .collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
     public GatheringResponse getGathering(Long id) {
         Gathering gathering = gatheringRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("찾고자 하는 모임이 존재하지 않습니다.")

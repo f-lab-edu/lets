@@ -42,6 +42,8 @@ public class GatheringRepositoryCustomImpl implements GatheringRepositoryCustom 
                                 searchGatheringRequest.getSortCondition()
                         )
                 )
+                .offset(searchGatheringRequest.getOffset())
+                .limit(searchGatheringRequest.getPageSize())
                 .fetch();
     }
 

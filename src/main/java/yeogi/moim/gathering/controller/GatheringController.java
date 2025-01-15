@@ -34,21 +34,14 @@ public class GatheringController {
         return registerGatheringService.registerGathering(gatheringRequest);
     }
 
-    @GetMapping
-    public List<GatheringResponse> getGatheringList() {
-        return gatheringService.getGatheringList();
-    }
-
     @GetMapping("/{id}")
     public GatheringResponse getGathering(@PathVariable Long id) {
         return gatheringService.getGathering(id);
-
     }
 
     @PostMapping("/search")
     public List<GatheringResponse> searchGatheringList(@RequestBody SearchGatheringRequest searchGatheringRequest) {
         return gatheringService.searchGatheringList(searchGatheringRequest);
-
     }
 
     @PutMapping("/{id}")
