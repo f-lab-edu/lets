@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import yeogi.moim.gathering.dto.GatheringRequest;
 import yeogi.moim.gathering.dto.GatheringResponse;
 import yeogi.moim.gathering.dto.SearchGatheringRequest;
+import yeogi.moim.gathering.dto.SearchGatheringResponse;
 import yeogi.moim.gathering.service.GatheringService;
 import yeogi.moim.gathering.service.RegisterGatheringService;
 
@@ -40,7 +41,7 @@ public class GatheringController {
     }
 
     @PostMapping("/search")
-    public List<GatheringResponse> searchGatheringList(@RequestBody SearchGatheringRequest searchGatheringRequest) {
+    public List<SearchGatheringResponse> searchGatheringList(@RequestBody SearchGatheringRequest searchGatheringRequest) {
         return gatheringService.searchGatheringList(searchGatheringRequest);
     }
 
