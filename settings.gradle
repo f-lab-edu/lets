@@ -1,1 +1,5 @@
 rootProject.name = 'moim'
+
+include 'lets-gathering'
+include 'lets-recommendation'
+

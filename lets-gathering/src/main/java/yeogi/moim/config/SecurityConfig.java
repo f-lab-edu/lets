@@ -3,6 +3,7 @@ package yeogi.moim.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,9 +27,11 @@ public class SecurityConfig {
                 세션을 사용할 때에는 csrf 보호가 필요하기 때문에 csrf 보호 활성화해야 함. -> security 기본 설정
                 .csrf(AbstractHttpConfigurer::disable)
                  */
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/csrf", "/api/members", "/api/auth/signup").permitAll()
-                        .anyRequest().authenticated()
+//                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .formLogin
                         (form -> form

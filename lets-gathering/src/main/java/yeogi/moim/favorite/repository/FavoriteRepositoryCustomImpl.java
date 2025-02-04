@@ -5,12 +5,11 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 import yeogi.moim.favorite.dto.FavoriteResponse;
-import yeogi.moim.favorite.entity.Favorite;
 
 import java.util.List;
 
-import static yeogi.moim.favorite.entity.QFavorite.favorite;
-import static yeogi.moim.gathering.entity.QGathering.gathering;
+import yeogi.moim.favorite.entity.QFavorite;
+import yeogi.moim.gathering.entity.QGathering;
 
 @Repository
 public class FavoriteRepositoryCustomImpl implements FavoriteRepositoryCustom {
@@ -24,11 +23,11 @@ public class FavoriteRepositoryCustomImpl implements FavoriteRepositoryCustom {
     @Override
     public Long countFavoritesByGatheringId(Long gatheringId) {
         return queryFactory
-                .select(favorite.count())
-                .from(favorite)
+                .select(QFavorite.favorite.count())
+                .from(QFavorite.favorite)
                 .where(
-                        favorite.gatheringId.eq(gatheringId)
-                                .and(favorite.isFavorite.isTrue())
+                        QFavorite.favorite.gatheringId.eq(gatheringId)
+                                .and(QFavorite.favorite.isFavorite.isTrue())
                 )
                 .fetchOne();
     }
@@ -36,16 +35,16 @@ public class FavoriteRepositoryCustomImpl implements FavoriteRepositoryCustom {
     @Override
     public List<FavoriteResponse> findByUserIdWithGathering(Long userId) {
         return queryFactory.select(Projections.constructor(FavoriteResponse.class,
-                        favorite.id,
-                        favorite.userId,
-                        favorite.gatheringId,
-                        favorite.isFavorite,
-                        gathering.title,
-                        gathering.description
+                        QFavorite.favorite.id,
+                        QFavorite.favorite.userId,
+                        QFavorite.favorite.gatheringId,
+                        QFavorite.favorite.isFavorite,
+                        QGathering.gathering.title,
+                        QGathering.gathering.description
                 ))
-                .from(favorite)
-                .leftJoin(gathering).on(favorite.gatheringId.eq(gathering.id))
-                .where(favorite.userId.eq(userId))
+                .from(QFavorite.favorite)
+                .leftJoin(QGathering.gathering).on(QFavorite.favorite.gatheringId.eq(QGathering.gathering.id))
+                .where(QFavorite.favorite.userId.eq(userId))
                 .fetch();
     }
 }
