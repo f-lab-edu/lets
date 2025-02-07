@@ -33,7 +33,7 @@ public class FavoriteRepositoryCustomImpl implements FavoriteRepositoryCustom {
     }
 
     @Override
-    public List<FavoriteResponse> findByUserIdWithGathering(Long userId) {
+    public List<FavoriteResponse> findMyFavoriteGatheringsByUserId(Long userId) {
         return queryFactory.select(Projections.constructor(FavoriteResponse.class,
                         QFavorite.favorite.id,
                         QFavorite.favorite.userId,

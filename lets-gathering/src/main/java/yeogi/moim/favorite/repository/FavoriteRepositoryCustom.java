@@ -7,4 +7,5 @@ import java.util.List;
 public interface FavoriteRepositoryCustom {
     Long countFavoritesByGatheringId(Long gatheringId);
     List<FavoriteResponse> findByUserIdWithGathering(Long userId);
+    List<FavoriteResponse> findMyFavoriteGatheringsByUserId(Long userId);
 }

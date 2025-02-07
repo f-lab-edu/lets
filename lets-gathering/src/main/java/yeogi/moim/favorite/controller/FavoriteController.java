@@ -2,12 +2,14 @@ package yeogi.moim.favorite.controller;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import yeogi.moim.favorite.dto.FavoriteRequest;
 import yeogi.moim.favorite.dto.FavoriteResponse;
+import yeogi.moim.favorite.dto.MemberFavoriteResponse;
 import yeogi.moim.favorite.service.FavoriteService;
 
 import java.util.List;
@@ -28,8 +30,9 @@ public class FavoriteController {
     }
 
     @GetMapping
-    public List<FavoriteResponse> getFavoriteList() {
-        return favoriteService.getFavoriteList();
+    public List<FavoriteResponse> getFavoriteGatherings() {
+        return favoriteService.getFavoriteGatherings();
+    }
     }
 
 }
