@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import yeogi.moim.favorite.dto.FavoriteRequest;
 import yeogi.moim.favorite.dto.FavoriteResponse;
-import yeogi.moim.favorite.dto.MemberFavoriteResponse;
+import yeogi.moim.favorite.dto.MemberWhoLikedGathering;
 import yeogi.moim.favorite.service.FavoriteService;
 
 import java.util.List;
@@ -33,6 +33,10 @@ public class FavoriteController {
     public List<FavoriteResponse> getFavoriteGatherings() {
         return favoriteService.getFavoriteGatherings();
     }
+
+    @GetMapping("/gatherings/{id}")
+    public List<MemberWhoLikedGathering> getMembersWhoLikedGathering(@PathVariable Long id) {
+        return favoriteService.getMembersWhoLikedGathering(id);
     }
 
 }

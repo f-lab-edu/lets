@@ -3,7 +3,7 @@ package yeogi.moim.favorite.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yeogi.moim.authentication.service.AuthenticationService;
-import yeogi.moim.favorite.dto.MemberFavoriteResponse;
+import yeogi.moim.favorite.dto.MemberWhoLikedGathering;
 import yeogi.moim.gathering.dto.GatheringResponse;
 import yeogi.moim.gathering.service.GatheringService;
 import yeogi.moim.favorite.dto.FavoriteRequest;
@@ -64,6 +64,20 @@ public class FavoriteService {
         Favorite favorite = favoriteRequest.toEntity();
 
         favoriteRepository.save(favorite);
+    }
+
+    @Transactional(readOnly = true)
+    public List<MemberWhoLikedGathering> getMembersWhoLikedGathering(Long id) {
+        Long userId = authenticationService.getAuthenticatedMemberId();
+
+        memberService.getMember(userId);
+        GatheringResponse gatheringResponse = gatheringService.getGathering(id);
+
+        if (!userId.equals(gatheringResponse.getOwnerId())) {
+            throw new IllegalArgumentException("모임의 리더만 조회가 가능합니다.");
+        }
+
+        return favoriteRepository.findMembersWhoLikedGatheringsByGatheringId(id);
     }
 
 }

@@ -8,6 +8,7 @@ import yeogi.moim.favorite.dto.FavoriteResponse;
 
 import java.util.List;
 
+import yeogi.moim.favorite.dto.MemberWhoLikedGathering;
 import yeogi.moim.favorite.entity.QFavorite;
 import yeogi.moim.gathering.entity.QGathering;
 
@@ -44,7 +45,23 @@ public class FavoriteRepositoryCustomImpl implements FavoriteRepositoryCustom {
                 ))
                 .from(QFavorite.favorite)
                 .leftJoin(QGathering.gathering).on(QFavorite.favorite.gatheringId.eq(QGathering.gathering.id))
-                .where(QFavorite.favorite.userId.eq(userId))
+                .where(QFavorite.favorite.userId.eq(userId),
+                        QFavorite.favorite.isFavorite.eq(true)
+                )
+                .fetch();
+    }
+
+    @Override
+    public List<MemberWhoLikedGathering> findMembersWhoLikedGatheringsByGatheringId(Long gatheringId) {
+        return queryFactory
+                .select(Projections.constructor(
+                        MemberWhoLikedGathering.class,
+                        QFavorite.favorite.userId)
+                )
+                .from(QFavorite.favorite)
+                .where(QFavorite.favorite.gatheringId.eq(gatheringId),
+                        QFavorite.favorite.isFavorite.eq(true)
+                )
                 .fetch();
     }
 }
