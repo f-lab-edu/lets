@@ -1,9 +1,12 @@
 package yeogi.moim.gathering.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import yeogi.moim.gathering.dto.GatheringReviewRequest;
 import yeogi.moim.review.dto.ReviewResponse;
 import yeogi.moim.review.service.GetGatheringReviewService;
 
@@ -19,8 +22,8 @@ public class GatheringReviewController {
         this.getGatheringReviewService = getGatheringReviewService;
     }
 
-    @GetMapping("/{id}/reviews")
-    public List<ReviewResponse> getGatheringReviews(@PathVariable Long id) {
-        return getGatheringReviewService.getGatheringReviewList(id);
+    @PostMapping("/reviews")
+    public List<ReviewResponse> getGatheringReviews(@RequestBody GatheringReviewRequest gatheringReviewRequest) {
+        return getGatheringReviewService.getGatheringReviews(gatheringReviewRequest);
     }
 }
