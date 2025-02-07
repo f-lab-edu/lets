@@ -41,8 +41,8 @@ public class GatheringController {
     }
 
     @PostMapping("/search")
-    public List<SearchGatheringResponse> searchGatheringList(@RequestBody SearchGatheringRequest searchGatheringRequest) {
-        return gatheringService.searchGatheringList(searchGatheringRequest);
+    public List<SearchGatheringResponse> searchGatherings(@RequestBody SearchGatheringRequest searchGatheringRequest) {
+        return gatheringService.searchGatherings(searchGatheringRequest);
     }
 
     @PutMapping("/{id}")

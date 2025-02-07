@@ -66,7 +66,7 @@ public class ParticipantService {
     }
 
     @Transactional(readOnly = true)
-    public List<ParticipantResponse> getParticipantList() {
+    public List<ParticipantResponse> getParticipants() {
         return participantRepository.findAll().stream()
                 .map(ParticipantResponse::from)
                 .collect(Collectors.toList());

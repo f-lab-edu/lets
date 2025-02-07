@@ -29,8 +29,8 @@ public class ParticipantController {
     }
 
     @GetMapping
-    public List<ParticipantResponse> getParticipantList() {
-        return participantService.getParticipantList();
+    public List<ParticipantResponse> getParticipants() {
+        return participantService.getParticipants();
     }
 
     @GetMapping("/{id}")
