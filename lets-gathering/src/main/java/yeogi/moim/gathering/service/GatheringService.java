@@ -6,7 +6,6 @@ import yeogi.moim.authentication.service.AuthenticationService;
 import yeogi.moim.gathering.dto.GatheringRequest;
 import yeogi.moim.gathering.dto.GatheringResponse;
 import yeogi.moim.gathering.dto.SearchGatheringRequest;
-import yeogi.moim.gathering.dto.SearchGatheringResponse;
 import yeogi.moim.gathering.entity.Gathering;
 import yeogi.moim.gathering.repository.GatheringRepository;
 
@@ -43,9 +42,9 @@ public class GatheringService {
     }
 
     @Transactional
-    public List<SearchGatheringResponse> searchGatherings(SearchGatheringRequest searchGatheringRequest) {
+    public List<GatheringResponse> searchGatherings(SearchGatheringRequest searchGatheringRequest) {
         return gatheringRepository.searchGatherings(searchGatheringRequest).stream()
-                .map(SearchGatheringResponse::from)
+                .map(GatheringResponse::from)
                 .collect(Collectors.toList());
     }
 

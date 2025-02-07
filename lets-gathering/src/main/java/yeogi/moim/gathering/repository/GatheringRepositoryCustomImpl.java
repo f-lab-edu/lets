@@ -1,15 +1,14 @@
 package yeogi.moim.gathering.repository;
 
 import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 import yeogi.moim.favorite.entity.QFavorite;
-import yeogi.moim.gathering.dto.SearchGatheringDto;
 import yeogi.moim.gathering.dto.SearchGatheringRequest;
 import yeogi.moim.gathering.entity.Category;
+import yeogi.moim.gathering.entity.Gathering;
 import yeogi.moim.review.entity.QReview;
 import yeogi.moim.gathering.entity.QGathering;
 
@@ -28,16 +27,9 @@ public class GatheringRepositoryCustomImpl implements GatheringRepositoryCustom 
     }
 
     @Override
-    public List<SearchGatheringDto> searchGatheringList(SearchGatheringRequest searchGatheringRequest) {
+    public List<Gathering> searchGatherings(SearchGatheringRequest searchGatheringRequest) {
         return queryFactory
-                .select(Projections.constructor(
-                        SearchGatheringDto.class,
-                        QGathering.gathering.id,
-                        QGathering.gathering.title,
-                        QGathering.gathering.currentPersonnel,
-                        QGathering.gathering.totalPersonnel
-                ))
-                .from(QGathering.gathering)
+                .selectFrom(QGathering.gathering)
                 .leftJoin(QFavorite.favorite).on(QFavorite.favorite.gatheringId.eq(QGathering.gathering.id))
                 .leftJoin(QReview.review).on(QReview.review.gatheringId.eq(QGathering.gathering.id))
                 .where(
