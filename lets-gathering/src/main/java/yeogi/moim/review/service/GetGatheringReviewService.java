@@ -3,6 +3,7 @@ package yeogi.moim.review.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yeogi.moim.authentication.service.AuthenticationService;
+import yeogi.moim.gathering.dto.GatheringReviewRequest;
 import yeogi.moim.gathering.service.GatheringService;
 import yeogi.moim.member.service.MemberService;
 import yeogi.moim.review.dto.ReviewResponse;
@@ -27,13 +28,13 @@ public class GetGatheringReviewService {
     }
 
     @Transactional(readOnly = true)
-    public List<ReviewResponse> getGatheringReviewList(Long gatheringId) {
+    public List<ReviewResponse> getGatheringReviews(GatheringReviewRequest gatheringReviewRequest) {
         Long memberId = authenticationService.getAuthenticatedMemberId();
         memberService.getMember(memberId);
 
-        gatheringService.getGathering(gatheringId);
+        gatheringService.getGathering(gatheringReviewRequest.getGatheringId());
 
-        return reviewRepository.findByGatheringId(gatheringId).stream()
+        return reviewRepository.findReviewsByGatheringId(gatheringReviewRequest).stream()
                 .map(ReviewResponse::from)
                 .collect(Collectors.toList());
     }

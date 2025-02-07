@@ -5,6 +5,5 @@ import yeogi.moim.review.entity.Review;
 
 import java.util.List;
 
-public interface ReviewRepository extends JpaRepository<Review, Long> {
-    List<Review> findByGatheringId(Long gatheringId);
+public interface ReviewRepository extends JpaRepository<Review, Long>, ReviewRepositoryCustom {
 }
